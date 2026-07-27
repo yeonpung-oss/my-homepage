@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>서종원 | 초등교사 · SW·AI 교육</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ── 기본 리셋 ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:     #FFD600;
+      --yellow-lt:  #FFF9CC;
+      --yellow-dk:  #B89B00;
+      --bg:         #F4F2EC;
+      --white:      #FFFFFF;
+      --text:       #1A1A1A;
+      --text-md:    #555555;
+      --text-lt:    #999999;
+      --radius-lg:  28px;
+      --radius-md:  18px;
+      --shadow:     0 4px 32px rgba(0,0,0,0.08);
+      --shadow-sm:  0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px 24px;
+      /* 배경 도트 패턴 */
+      background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-color: #F0EDE6;
+    }
+
+    /* ── 전체 레이아웃 ─────────────────────────── */
+    .wrapper {
+      width: 100%;
+      max-width: 1060px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .main-row {
+      display: flex;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    /* ═══════════════════════════════════════════
+       LEFT — 프로필 카드
+    ═══════════════════════════════════════════ */
+    .profile-card {
+      flex: 0 0 320px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 44px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 배경 장식 원 */
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: -64px; left: -64px;
+      width: 180px; height: 180px;
+      background: var(--yellow);
+      border-radius: 50%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .profile-card::after {
+      content: '';
+      position: absolute;
+      bottom: -52px; right: -52px;
+      width: 150px; height: 150px;
+      background: var(--yellow);
+      border-radius: 50%;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    /* 사진 링 + 원 */
+    .photo-wrap {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-bottom: 24px;
+    }
+
+    .photo-ring {
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: conic-gradient(var(--yellow) 0%, #FFE766 50%, var(--yellow) 100%);
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .photo-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 5px solid var(--white);
+      overflow: hidden;
+      background: #E8E3DB;
+    }
+
+    .photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* 이름 */
+    .profile-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .profile-role {
+      font-size: 13px;
+      color: var(--text-lt);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    /* 태그 */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .tag {
+      background: var(--yellow-lt);
+      border: 1.5px solid var(--yellow);
+      color: var(--yellow-dk);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 13px;
+      border-radius: 100px;
+    }
+
+    /* 구분선 */
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--yellow);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* 스펙 리스트 */
+    .spec-list {
+      list-style: none;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .spec-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #FAFAF8;
+      border: 1.5px solid #EFEFEF;
+      transition: border-color .2s, background .2s;
+    }
+
+    .spec-item:hover {
+      border-color: var(--yellow);
+      background: var(--yellow-lt);
+    }
+
+    .spec-item.spec-award {
+      border-color: #FFE066;
+      background: #FFFBE8;
+    }
+
+    .spec-item.spec-award .spec-year {
+      background: var(--yellow);
+      color: #7A6000;
+    }
+
+    .spec-year {
+      flex-shrink: 0;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #999;
+      background: #EFEFEF;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-top: 1px;
+      letter-spacing: 0.02em;
+    }
+
+    .spec-text {
+      font-size: 12.5px;
+      color: var(--text-md);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════
+       RIGHT — 인트로 + 메뉴
+    ═══════════════════════════════════════════ */
+    .right-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    /* 인트로 카드 */
+    .intro-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 40px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 우상단 장식 */
+    .intro-card::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 140px; height: 140px;
+      background: var(--yellow);
+      border-radius: 50%;
+      opacity: 0.10;
+      pointer-events: none;
+    }
+
+    .intro-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--yellow-dk);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .intro-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--yellow);
+      border-radius: 50%;
+    }
+
+    .intro-headline {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.35;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .intro-headline em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--yellow) 0%, #FFB800 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro-text {
+      font-size: 14.5px;
+      color: var(--text-md);
+      line-height: 1.85;
+    }
+
+    /* 메뉴 그리드 */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .menu-btn {
+      background: var(--white);
+      border: 2px solid #EBEBEB;
+      border-radius: var(--radius-md);
+      padding: 20px 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color .25s, background .25s, transform .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+
+    .menu-btn:hover {
+      border-color: var(--yellow);
+      background: #FFFDE8;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(255,214,0,0.22);
+    }
+
+    .menu-icon {
+      width: 46px; height: 46px;
+      border-radius: 13px;
+      background: var(--yellow-lt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      transition: background .25s, transform .25s;
+    }
+
+    .menu-btn:hover .menu-icon {
+      background: var(--yellow);
+      transform: scale(1.1) rotate(-4deg);
+    }
+
+    .menu-info { flex: 1; min-width: 0; }
+
+    .menu-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      white-space: nowrap;
+    }
+
+    .menu-desc {
+      font-size: 11.5px;
+      color: var(--text-lt);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .menu-arrow {
+      font-size: 13px;
+      color: #CCC;
+      flex-shrink: 0;
+      transition: color .25s, transform .25s;
+    }
+
+    .menu-btn:hover .menu-arrow {
+      color: var(--yellow-dk);
+      transform: translateX(4px);
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER — 소셜
+    ═══════════════════════════════════════════ */
+    .footer {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-sm);
+      padding: 18px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 12.5px;
+      color: var(--text-lt);
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #F5F5F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background .2s, color .2s, transform .2s;
+    }
+
+    .social-btn:hover {
+      background: var(--yellow);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* ═══════════════════════════════════════════
+       반응형 — 태블릿 이하
+    ═══════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      body { padding: 24px 16px 20px; justify-content: flex-start; }
+
+      .main-row { flex-direction: column; }
+
+      .profile-card {
+        flex: none;
+        width: 100%;
+        padding: 36px 28px 32px;
+      }
+
+      /* 모바일에서 스펙 리스트 2열 그리드로 */
+      .spec-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .intro-card { padding: 28px 28px; }
+
+      .intro-headline { font-size: 24px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       반응형 — 모바일
+    ═══════════════════════════════════════════ */
+    @media (max-width: 520px) {
+      .menu-grid { grid-template-columns: 1fr; }
+
+      .spec-list { grid-template-columns: 1fr; }
+
+      .intro-card { padding: 24px 20px; }
+
+      .intro-headline { font-size: 22px; }
+
+      .footer {
+        flex-direction: column;
+        gap: 12px;
+        padding: 18px 24px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- ── 메인 행 ─────────────────────────────── -->
+  <div class="main-row">
+
+    <!-- LEFT: 프로필 카드 -->
+    <div class="profile-card">
+
+      <div class="photo-wrap">
+        <div class="photo-ring"></div>
+        <div class="photo-inner">
+          <img
+            src="photo.jpg"
+            alt="서종원 프로필 사진"
+            onerror="this.onerror=null; this.src='photo.png';"
+          />
+        </div>
+      </div>
+
+      <div class="profile-name">서종원</div>
+      <div class="profile-role">연풍초등학교 · 경인교대 AI 대학원</div>
+
+      <div class="tags">
+        <span class="tag"># 교실혁명 선도교사</span>
+        <span class="tag"># AIEDAP 마스터교원</span>
+        <span class="tag"># AI 대학원</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <ul class="spec-list">
+        <li class="spec-item">
+          <span class="spec-year">2024</span>
+          <span class="spec-text">연풍초등학교 근무</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-year">2024</span>
+          <span class="spec-text">교실혁명 선도교사</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-year">2025</span>
+          <span class="spec-text">AIEDAP 마스터교원</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-year">2025</span>
+          <span class="spec-text">대구교대 AI 꿈 키움<br>동아리 운영</span>
+        </li>
+        <li class="spec-item spec-award">
+          <span class="spec-year">2025</span>
+          <span class="spec-text">이주배경 학생지도<br>공모전 최우수상</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-year">2025~</span>
+          <span class="spec-text">경인교대 AI 대학원 재학</span>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- RIGHT: 인트로 + 메뉴 -->
+    <div class="right-col">
+
+      <!-- 인트로 카드 -->
+      <div class="intro-card">
+        <div class="intro-label">Hello, I'm a Teacher &amp; AI Educator</div>
+        <h1 class="intro-headline">
+          교실에서 시작하는<br>
+          <em>AI · SW 교육</em>의 변화
+        </h1>
+        <p class="intro-text">
+          연풍초등학교에서 아이들과 함께 배우는 교사입니다.<br>
+          교실혁명 선도교사·AIEDAP 마스터교원으로 활동하며,<br>
+          경인교대 AI 대학원에서 더 깊은 공부를 이어가고 있습니다.<br>
+          수업 경험을 기록하고, 더 많은 선생님들과 나누고 싶습니다.
+        </p>
+      </div>
+
+      <!-- 메뉴 버튼 2×2 -->
+      <div class="menu-grid">
+
+        <a href="#" class="menu-btn">
+          <div class="menu-icon">📚</div>
+          <div class="menu-info">
+            <div class="menu-title">교육 블로그</div>
+            <div class="menu-desc">수업 기록 &amp; 교육 노하우</div>
+          </div>
+          <span class="menu-arrow">→</span>
+        </a>
+
+        <a href="#" class="menu-btn">
+          <div class="menu-icon">🎤</div>
+          <div class="menu-info">
+            <div class="menu-title">강의 · 연수</div>
+            <div class="menu-desc">SW·AI 교원 연수 안내</div>
+          </div>
+          <span class="menu-arrow">→</span>
+        </a>
+
+        <a href="#" class="menu-btn">
+          <div class="menu-icon">💻</div>
+          <div class="menu-info">
+            <div class="menu-title">개발 프로젝트</div>
+            <div class="menu-desc">수업용 도구 &amp; 앱 제작</div>
+          </div>
+          <span class="menu-arrow">→</span>
+        </a>
+
+        <a href="#" class="menu-btn">
+          <div class="menu-icon">🤝</div>
+          <div class="menu-info">
+            <div class="menu-title">협업 문의</div>
+            <div class="menu-desc">강연 · 콘텐츠 제작 제안</div>
+          </div>
+          <span class="menu-arrow">→</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 푸터 소셜 ─────────────────────────── -->
+  <footer class="footer">
+    <span class="footer-copy">© 2026 서종원. All rights reserved.</span>
+    <div class="social-row">
+      <a href="mailto:tjwhddbjs@gmail.com" class="social-btn" title="이메일 보내기">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
