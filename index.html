@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>서종원 | 초등교사 · SW·AI 교육</title>
+  <title>서OO | 초등교사 · SW·AI 교육</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
@@ -492,13 +492,13 @@
         <div class="photo-inner">
           <img
             src="photo.jpg"
-            alt="서종원 프로필 사진"
+            alt="서OO 프로필 사진"
             onerror="this.onerror=null; this.src='photo.png';"
           />
         </div>
       </div>
 
-      <div class="profile-name">서종원</div>
+      <div class="profile-name">서OO</div>
       <div class="profile-role">연풍초등학교 · 경인교대 AI 대학원</div>
 
       <div class="tags">
@@ -601,9 +601,9 @@
 
   <!-- ── 푸터 소셜 ─────────────────────────── -->
   <footer class="footer">
-    <span class="footer-copy">© 2026 서종원. All rights reserved.</span>
+    <span class="footer-copy">© 2026 서OO. All rights reserved.</span>
     <div class="social-row">
-      <a href="mailto:tjwhddbjs@gmail.com" class="social-btn" title="이메일 보내기">
+      <a id="mail-btn" class="social-btn" title="이메일 보내기">
         <i class="fas fa-envelope"></i>
       </a>
     </div>
@@ -611,5 +611,12 @@
 
 </div>
 
+  <script>
+    // 이메일 소스 노출 방지
+    const u = 'tjwhddbjs';
+    const d = 'gmail.com';
+    const btn = document.getElementById('mail-btn');
+    btn.href = 'mailto:' + u + '@' + d;
+  </script>
 </body>
 </html>
