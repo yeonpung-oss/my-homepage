@@ -7,6 +7,9 @@ secrets.json
 config.secret.*
 api-keys.*
 
+# push 스크립트 (토큰 포함)
+push.sh
+
 # OS 생성 파일
 .DS_Store
 Thumbs.db
